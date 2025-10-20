@@ -200,7 +200,7 @@ if plots:
     for ax in axs:
         ax.grid(True)
 
-sr, samples = wv.read("resources/139_2.wav")
+sr, samples = wv.read("resources/c_sample.wav")
 print("Samplerate: {}Hz".format(sr))
 samples = samples.astype(np.float32) / np.iinfo(type(samples[0])).max
 
