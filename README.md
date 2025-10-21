@@ -34,3 +34,24 @@ telegram number: 10, A1: 0xB2, A2: 0xB8, user data: 0x6F 0x80 0x80 0x88, CRC: 0x
 2025-4-16 (Wed) - 20:24:32 DST
 ```
 
+## C version of the decoder
+
+There is a C version of the decoder in the `c` directory. To build use the standard CMake
+procedure:
+
+```sh
+cd c
+mkdir build
+cd build
+cmake ..
+make
+```
+
+Can be tested using sox:
+
+```sh
+sox ../../resources/c_sample.wav -t wav -c1 -r15000 - | ./dcf39_decoder
+```
+
+Needs specific format of the WAV files - 15k samplerate and 1kHz offset from the actual signal
+(SSB tuned to 138kHz). `c_sample.wav` and `c_sample2.wav` are files recorded in this format.

@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 
 SAMPLES_PER_SYMBOL = 10
-DCF39_F_SHIFT_HZ = 370
+DCF39_F_SHIFT_HZ = 340
 
 
 class Telegram:
@@ -170,8 +170,7 @@ def demod(asig, sr, ff=250):
     fm_demod = (np.angle(np.conj(r_prime) * asig)) * ref * sr
 
     if ff > 0:
-        b = sig.firwin(200, ff, fs=sr)
-        demod = sig.filtfilt(b, [1.0], fm_demod)
+        demod = sig.filtfilt(0.154, [1.0, -(1 - 0.154)], fm_demod)
     else:
         demod = fm_demod
 
@@ -201,7 +200,7 @@ if plots:
     for ax in axs:
         ax.grid(True)
 
-sr, samples = wv.read("resources/sample2.wav")
+sr, samples = wv.read("resources/c_sample.wav")
 print("Samplerate: {}Hz".format(sr))
 samples = samples.astype(np.float32) / np.iinfo(type(samples[0])).max
 
